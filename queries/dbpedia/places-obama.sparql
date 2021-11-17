@@ -1,0 +1,7 @@
+# Places that have something to do with Barack Obama
+# Datasource: https://dbpedia.org/sparql
+SELECT ?place ?relation
+WHERE {
+  ?place rdf:type dbpedia-owl:Settlement;
+         ?relation dbpedia:Barack_Obama;
+}

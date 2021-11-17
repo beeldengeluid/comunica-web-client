@@ -1,0 +1,7 @@
+# Carpenters killed by crucifixion
+# Datasource: https://dbpedia.org/sparql
+PREFIX yago: <http://dbpedia.org/class/yago/>
+SELECT ?person
+WHERE {
+  ?person a yago:Carpenters, yago:PeopleExecutedByCrucifixion.
+}

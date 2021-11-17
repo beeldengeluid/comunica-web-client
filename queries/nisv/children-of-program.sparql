@@ -1,0 +1,18 @@
+# Children of program
+# Datasource: http://54.217.179.144/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Select all logtrackitems that are scene description for a program
+SELECT DISTINCT ?program ?scene_description
+WHERE {
+  VALUES ?program {
+    <http://data.rdlabs.beeldengeluid.nl/id/program/2101608190180567031>
+  }
+  
+  ?program rdf:type sdo:CreativeWork .
+
+  ?program sdo:hasPart ?scene_description
+
+} LIMIT 10

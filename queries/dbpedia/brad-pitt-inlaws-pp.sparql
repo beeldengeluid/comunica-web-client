@@ -1,0 +1,6 @@
+# Chain of in-laws from Brad Pitt
+# Datasource: https://dbpedia.org/sparql
+SELECT ?person
+WHERE {
+  dbpedia:Brad_Pitt dbpedia-owl:spouse* ?person.
+}

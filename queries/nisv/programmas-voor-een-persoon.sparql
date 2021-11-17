@@ -1,0 +1,19 @@
+# Programma's voor een persoon
+# Datasource: http://54.217.179.144/sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sdo: <https://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
+
+select DISTINCT ?person ?personName where {
+  ?programId a sdo:CreativeWork . 
+
+  ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) gtaa:126347 .
+
+  ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?person .
+
+  ?person skos:prefLabel ?personName . FILTER(?person != gtaa:126347)
+}
