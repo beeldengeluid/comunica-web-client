@@ -1,7 +1,0 @@
-# Spouses and children of Bruce Willis
-# Datasource: https://dbpedia.org/sparql
-SELECT ?person
-WHERE {
-  [ rdfs:label "Bruce Willis"@en ]
-    (dbpedia-owl:spouse|dbpedia-owl:child) ?person.
-}
