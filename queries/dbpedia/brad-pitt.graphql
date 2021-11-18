@@ -1,4 +1,4 @@
-# 2. Directors of movies starring Brad Pitt
+# Directors of movies starring Brad Pitt
 # Datasource: https://dbpedia.org/sparql
 {
   label @single
