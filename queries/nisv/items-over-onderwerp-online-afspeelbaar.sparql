@@ -1,5 +1,5 @@
 # Items over bepaald onderwerp, die online afspeelbaar zijn
-# Datasource: http://54.217.179.144/sparql
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

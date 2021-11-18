@@ -17,7 +17,7 @@
   "datasources": [
     {
       "name": "NISV SPARQL",
-      "url": "http://54.217.179.144/sparql"
+      "url": "https://cat.apis.beeldengeluid.nl/sparql"
     },
     {
       "name": "DBpedia SPARQL",
