@@ -10,7 +10,7 @@ WHERE {
   ?s (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
   (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?personId .
 
-  ?personId skos:prefLabel \"Bouwman, Mies\"@nl . 
+  ?personId skos:prefLabel "Bouwman, Mies"@nl .
 
   ?s sdo:about ?subjectIri . 
 

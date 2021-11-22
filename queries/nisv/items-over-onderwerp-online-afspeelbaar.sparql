@@ -9,9 +9,9 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?item ?url_gpp ?prefLabel
 WHERE {
   VALUES ?prefLabel {
-    \"invasies\"@nl
-    #    \"Jodenvervolging\"@nl
-    #  \"Tweede Wereldoorlog\"@nl
+    "invasies"@nl
+    #    "Jodenvervolging"@nl
+    #  "Tweede Wereldoorlog"@nl
   }
   ?item rdf:type sdo:CreativeWork .
   ?item sdo:conditionsOfAccess ?show_browse .
