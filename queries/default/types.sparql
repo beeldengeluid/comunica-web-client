@@ -1,5 +1,8 @@
 # 10300. Explore object types
-SELECT DISTINCT ?type ?label WHERE {
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?type ?label
+WHERE {
   ?s a ?type.
   OPTIONAL {
     ?type rdfs:label ?label.

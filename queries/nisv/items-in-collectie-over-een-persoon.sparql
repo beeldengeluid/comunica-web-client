@@ -3,8 +3,6 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>    
 
 SELECT DISTINCT ?programId ?main_title ?gtaa_concept ?person_name_pref_label 
 WHERE {
@@ -17,10 +15,8 @@ WHERE {
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
   (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?gtaa_concept .
 
-  ?gtaa_concept skos:prefLabel
-  ?person_name_pref_label.
-
+  ?gtaa_concept skos:prefLabel ?person_name_pref_label.
   ?programId sdo:name ?name .
 
   BIND(str(?name) as ?main_title)
-}
+} LIMIT 20

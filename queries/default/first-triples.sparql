@@ -1,5 +1,5 @@
 # 10000. Show 100 triples
-CONSTRUCT WHERE {
+SELECT * WHERE {
   ?s ?p ?o.
 }
 LIMIT 100

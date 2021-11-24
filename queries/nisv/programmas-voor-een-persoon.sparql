@@ -6,7 +6,8 @@ PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
-select DISTINCT ?person ?personName where {
+select DISTINCT ?person ?personName
+WHERE {
   ?programId a sdo:CreativeWork . 
 
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
