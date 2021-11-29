@@ -23,3 +23,25 @@ serve the generated web client in the `build` directory using your tool of choic
 serve ./build/
 python -m http.server -d ./build/
 ```
+
+## Adding Datasources
+
+In [`settings.json`](https://github.com/beeldengeluid/comunica-web-client/blob/main/settings.json), add to the datasources array:
+
+```json
+"datasources": [
+  {
+    "name": "NISV SPARQL",
+    "url": "https://cat.apis.beeldengeluid.nl/sparql"
+  }
+]
+```
+
+## Adding Queries
+
+In the [`/queries` directory](https://github.com/beeldengeluid/comunica-web-client/tree/main/queries), add a .sparql file containing:
+- On the first line: '# ' + Title of the query to display in the dropdown
+- On the second line: '# Datasource: ' + URL to the associated Datasource (if any)
+- A valid SPARQL query
+
+See for example [`children-of-program.sparql`](https://github.com/beeldengeluid/comunica-web-client/blob/main/queries/nisv/children-of-program.sparql).
