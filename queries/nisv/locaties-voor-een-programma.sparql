@@ -6,7 +6,7 @@ PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT DISTINCT ?locationName WHERE {
-  <http://data.rdlabs.beeldengeluid.nl/id/program/2101608040029461531> sdo:location ?location . 
+  <http://data.beeldengeluid.nl/id/program/2101608040029461531> sdo:location ?location .
   
   ?location skos:prefLabel ?locationName
 } 

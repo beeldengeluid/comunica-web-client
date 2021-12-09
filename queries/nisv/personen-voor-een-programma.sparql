@@ -9,14 +9,14 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT ?entity ?entityName
 WHERE {
   {
-    <http://data.rdlabs.beeldengeluid.nl/id/program/2101608160143012931> a sdo:CreativeWork ;
+    <http://data.beeldengeluid.nl/id/program/2101608160143012931> a sdo:CreativeWork ;
       (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
       (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
     ?entity skos:prefLabel ?entityName
   }
   UNION
   {
-    <http://data.rdlabs.beeldengeluid.nl/id/program/2101608160143012931> sdo:isPartOfSeason ?season .
+    <http://data.beeldengeluid.nl/id/program/2101608160143012931> sdo:isPartOfSeason ?season .
 
     ?season  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
     (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
@@ -25,7 +25,7 @@ WHERE {
   }
   UNION
   {
-    <http://data.rdlabs.beeldengeluid.nl/id/program/2101608160143012931> sdo:isPartOfSeason/
+    <http://data.beeldengeluid.nl/id/program/2101608160143012931> sdo:isPartOfSeason/
     sdo:isPartOfSeries ?series . 
 
     ?series  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
@@ -35,7 +35,7 @@ WHERE {
   }
   UNION
   {
-    ?scene sdo:hasPart <http://data.rdlabs.beeldengeluid.nl/id/program/2101608160143012931> .
+    ?scene sdo:hasPart <http://data.beeldengeluid.nl/id/program/2101608160143012931> .
 
     ?scene  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
     (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
