@@ -4,15 +4,17 @@ PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# Select all logtrackitems that are scene description for a program
-SELECT DISTINCT ?program ?scene_description
+# Select all scene description for a program
+SELECT DISTINCT ?program ?program_title ?scene_description ?scene_title
 WHERE {
   VALUES ?program {
     <http://data.beeldengeluid.nl/id/program/2101608190180567031>
   }
-  
-  ?program rdf:type sdo:CreativeWork .
 
-  ?program sdo:hasPart ?scene_description
+  ?program rdf:type sdo:CreativeWork ;
+           sdo:name ?program_title ;
+           sdo:hasPart ?scene_description .
+  ?scene_description sdo:name ?scene_title.
 
-} LIMIT 10
+}
+#LIMIT 10
