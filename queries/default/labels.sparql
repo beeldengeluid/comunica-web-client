@@ -1,9 +1,8 @@
-# 10200. List things and their labels
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX sdo: <https://schema.org/>
 
 SELECT DISTINCT ?subject ?label WHERE {
-  { ?subject dc:title ?label }
+  { ?subject sdo:name ?label }
   UNION
   { ?subject rdfs:label ?label }
 }
