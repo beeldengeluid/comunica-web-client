@@ -5,7 +5,7 @@
   },
   "branding": {
     "title": "Query the Sound and Vision media catalog as Open Data",
-    "title_href": "https://cat.beeldengeluid.nl/sparql",
+    "title_href": "https://cat.apis.beeldengeluid.nl/sparql",
     "subtitle": "Live in your browser, powered by Comunica",
     "subtitle_href": "https://comunica.dev/",
     "page_title": "Open Data form the Sound and Vision media catalog"
