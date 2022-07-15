@@ -1,4 +1,4 @@
-# Vraag programma's op gerelateerd aan een persoon (uit de thesaurus)
+# Alle programma's gerelateerd aan een persoon (uit de thesaurus)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -8,11 +8,10 @@ PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
 SELECT DISTINCT ?programId ?title
 WHERE {
-  VALUES ?a_person { gtaa:126347 }
-  ?a_person skos:prefLabel ?personName .
+  VALUES ?person_name_uri { gtaa:164629 }  # note: edit the GTAA URI
   ?programId a sdo:CreativeWork .
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)
-  ?a_person .
+  ?person_name_uri .
   ?programId sdo:name ?program_title .
   ?programId sdo:partOfSeries/sdo:name ?series_title
   BIND(
