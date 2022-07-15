@@ -1,4 +1,4 @@
-# Onderwerpen voor een persoon
+# Onderwerpen gerelateerd aan een persoon (via catalogus item's)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -7,10 +7,11 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 SELECT DISTINCT ?keyword
 WHERE {
+VALUES ?persoons_naam { "Bouwman, Mies"@nl }
   ?s (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
   (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?personId .
 
-  ?personId skos:prefLabel "Bouwman, Mies"@nl .
+  ?personId skos:prefLabel ?persoons_naam .
 
   ?s sdo:about ?subjectIri . 
 
