@@ -1,0 +1,24 @@
+# Vraag programma's op gerelateerd aan een persoon (uit de thesaurus)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sdo: <https://schema.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
+
+SELECT DISTINCT ?programId ?title
+WHERE {
+  VALUES ?a_person { gtaa:126347 }
+  ?a_person skos:prefLabel ?personName .
+  ?programId a sdo:CreativeWork .
+  ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)
+  ?a_person .
+  ?programId sdo:name ?program_title .
+  ?programId sdo:partOfSeries/sdo:name ?series_title
+  BIND(
+    COALESCE(
+      IF(?program_title, ?program_title, 1/0),
+      IF(?series_title, ?series_title, 1/0),
+      "Unknown"
+    ) AS ?title
+  )
+}
