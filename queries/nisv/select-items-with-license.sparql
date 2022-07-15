@@ -4,11 +4,12 @@ PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT DISTINCT ?item ?license
+SELECT DISTINCT ?item ?title ?license
 WHERE {
   VALUES ?license { <http://rightsstatements.org/vocab/InC/1.0/> }
-  ?item rdf:type sdo:CreativeWork .
-  ?item sdo:license ?license .
+  ?item rdf:type sdo:CreativeWork ;
+        sdo:license ?license ;
+        sdo:name ?title .
 
   # Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
   ?item sdo:conditionsOfAccess ?show_browse
