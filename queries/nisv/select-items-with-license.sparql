@@ -1,4 +1,4 @@
-# Items met specifieke licentie
+# Toon items met specifieke licentie
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

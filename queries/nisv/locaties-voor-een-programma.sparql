@@ -1,13 +1,14 @@
-# Locaties voor een programma
+# Aan een programma gerelateerde locaties
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-SELECT DISTINCT ?locationName WHERE {
-  <http://data.beeldengeluid.nl/id/program/2101608040029461531> sdo:location ?location .
-  
+SELECT DISTINCT ?location ?locationName
+WHERE {
+VALUES ?program_item {<http://data.beeldengeluid.nl/id/program/2101608040029461531>}
+  ?program_item sdo:location ?location .
   ?location skos:prefLabel ?locationName
 } 
 LIMIT 10
