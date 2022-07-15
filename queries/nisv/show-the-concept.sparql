@@ -1,0 +1,21 @@
+# Toon een SKOS concept (beknopt)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gtaa:<http://data.beeldengeluid.nl/gtaa/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT *
+WHERE {
+  VALUES ?uri {gtaa:72531}
+  ?uri skos:prefLabel ?pref_label .
+  OPTIONAL {
+    ?uri skos:altLabel ?alt_label .
+  }
+  OPTIONAL {
+    ?uri skos:scopeNote ?scope_note .
+  }
+  OPTIONAL {
+    ?uri skos:inScheme ?concept_scheme
+  }
+}
