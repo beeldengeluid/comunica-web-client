@@ -1,22 +1,21 @@
 # Aan een onderwerp gerelateerde items, die online afspeelbaar zijn (via de GPP)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
-SELECT DISTINCT ?item ?url_gpp ?prefLabel
+SELECT DISTINCT ?item ?url_gpp ?title ?license
 WHERE {
-  VALUES ?prefLabel {
-    "invasies"@nl
-    #    "Jodenvervolging"@nl
-    #  "Tweede Wereldoorlog"@nl
-  }
-  ?item rdf:type sdo:CreativeWork .
-  ?item sdo:conditionsOfAccess ?show_browse .
-  ?item sdo:url ?url_gpp .
-  ?item (sdo:about|sdo:mentions)/skos:prefLabel ?prefLabel
+  VALUES ?onderwerp {gtaa:27098}  # note: edit the concept id
+  ?item rdf:type sdo:CreativeWork ;
+        (sdo:about|sdo:mentions) ?onderwerp ;
+        sdo:name ?title ;
+        sdo:url ?url_gpp ;
+        sdo:license ?license ;
+        sdo:conditionsOfAccess ?show_browse .
+
   # Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
   FILTER(CONTAINS(?show_browse, 'True'))
-} 
-LIMIT 10
+}
+LIMIT 100
