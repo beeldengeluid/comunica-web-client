@@ -6,15 +6,17 @@ PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
-select DISTINCT ?person ?personName
+select DISTINCT ?other_person_uri ?other_person_name
 WHERE {
-  ?programId a sdo:CreativeWork . 
+  VALUES ?persoons_namen_uri {gtaa:126347}  # note: edit the GTAA URI
+  ?programId a sdo:CreativeWork .
 
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
   (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) gtaa:126347 .
 
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?person .
+  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?other_person_uri .
 
-  ?person skos:prefLabel ?personName . FILTER(?person != gtaa:126347)
+  ?other_person_uri skos:prefLabel ?other_person_name .
+  FILTER(?other_person_uri != ?persoons_namen_uri)
 }
