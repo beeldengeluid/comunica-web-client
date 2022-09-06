@@ -1,0 +1,13 @@
+# MOZ Concerts
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX schema: <http://schema.org/>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
+SELECT DISTINCT ?program ?programName
+WHERE {
+  ?program <https://schema.org/name> ?programName . 
+?program sdo:partOfSeason ?season . ?season sdo:partOfSeries ?series . ?series <https://schema.org/name> ?seriesName 
+  FILTER( contains(?seriesName,"Muziekopnamen Zendgemachtigden (MOZ)"))} LIMIT 100
