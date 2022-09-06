@@ -1,4 +1,4 @@
-# Concerts linked to Beethoven
+# MOZ Concerts linked to Beethoven
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX schema: <http://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
