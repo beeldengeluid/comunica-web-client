@@ -8,7 +8,7 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 # Personen voor een programma (ook via series/seizoen/scene description)
 SELECT ?entity ?entityName
 WHERE {
-  VALUES ?program_uri {<http://data.beeldengeluid.nl/id/program/2101608160143012931>}  # note: edit the GTAA URI
+  VALUES ?program_uri {<http://data.beeldengeluid.nl/id/program/2101608160143012931>}
   {
     ?program_uri a sdo:CreativeWork ;
       (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/

@@ -6,6 +6,7 @@ PREFIX sdo: <https://schema.org/>
 
 SELECT ?program_id ?title ?series_title ?season_title
 WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
   ?program_id sdo:name ?title
   OPTIONAL {
     ?program_id sdo:partOfSeries ?series_id.
@@ -14,6 +15,7 @@ WHERE {
   OPTIONAL {
     ?program_id sdo:partOfSeason ?season_id.
     ?season_id sdo:name ?season_title
+  }
   }
 }
 LIMIT 10
