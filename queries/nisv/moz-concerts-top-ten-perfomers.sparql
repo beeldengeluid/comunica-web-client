@@ -1,0 +1,20 @@
+# MOZ Concerts - top 10 performers
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+
+# Shows the name and number of concerts for the top 10 most frequently occurring performers in concerts that are part of the Dutch Broadcast Concert (MOZ) collection
+# Note: a performer can be either an individual or a musical group
+SELECT ?count ?name
+WHERE{
+  {
+    SELECT (COUNT(distinct ?programUri) as ?count) ?name
+    WHERE {
+     ?series <https://schema.org/name> "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .  
+     ?programUri sdo:partOfSeason/sdo:partOfSeries ?series .  
+     ?programUri a sdo:CreativeWork ;
+      sdo:byArtist/sdo:byArtist ?entity  .
+    ?entity skos:prefLabel ?name
+
+    } 
+    group by ?name }}order by desc(?count) LIMIT 10

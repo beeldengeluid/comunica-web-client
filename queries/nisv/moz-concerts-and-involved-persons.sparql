@@ -1,48 +1,21 @@
 # MOZ Concerts and involved persons
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX schema: <http://schema.org/>
+
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
-SELECT DISTINCT ?program_uri ?programName ?entityName
+# Shows the ID, title and names of related persons for all concerts that are part of the Dutch Broadcast Concert (MOZ) collection, in alphabetical order of program name
+# Persons can be in the role of Artist, Creator, or they may be mentioned in the concert, or the concert may be about them
+# Persons in the MOZ collection are only linked at the level of the concert (programme) itself
+SELECT DISTINCT ?programUri ?programName ?entityName
 WHERE {
-  ?program_uri <https://schema.org/name> ?programName . 
-?program_uri sdo:partOfSeason ?season . ?season sdo:partOfSeries ?series . ?series <https://schema.org/name> ?seriesName 
-  FILTER( contains(?seriesName,"Muziekopnamen Zendgemachtigden (MOZ)"))
-  {
-    ?program_uri a sdo:CreativeWork ;
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
+   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series .  
+   ?programUri sdo:name ?programName  .
+
+    ?programUri a sdo:CreativeWork ;
+      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
+      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity  .
     ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?program_uri sdo:isPartOfSeason ?season .
-
-    ?season  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?program_uri sdo:isPartOfSeason/sdo:isPartOfSeries ?series .
-
-    ?series  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?scene sdo:hasPart ?program_uri.
-
-    ?scene  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skos:prefLabel ?entityName 
-  }
-} LIMIT 100
+  
+} ORDER BY ?programName
