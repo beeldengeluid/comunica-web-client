@@ -3,18 +3,22 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 
-# Shows the name and number of concerts for the top 10 most frequently occurring creators in concerts that are part of the Dutch Broadcast Concert (MOZ) collection
+# Shows the name and number of concerts for the top 10 most frequently occurring 
+# creators in concerts that are part of the Dutch Broadcast Concert (MOZ) collection
 
 SELECT ?count ?name
-WHERE{
+WHERE
+{
+ {
+  SELECT (COUNT(DISTINCT ?programUri) as ?count) ?name
+  WHERE
   {
-    SELECT (COUNT(distinct ?programUri) as ?count) ?name
-    WHERE {
-     ?series <https://schema.org/name> "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .  
-     ?programUri sdo:partOfSeason/sdo:partOfSeries ?series .  
-     ?programUri a sdo:CreativeWork ;
-      sdo:creator/sdo:creator ?entity  .
-    ?entity skos:prefLabel ?name
+   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .  
+   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series ;  
+               a sdo:CreativeWork ;
+               sdo:creator/sdo:creator ?entity  .
+   ?entity skos:prefLabel ?name
+  } GROUP BY ?entity ?name 
+ }
+} ORDER BY desc(?count) LIMIT 10
 
-    } 
-    group by ?name }}order by desc(?count) LIMIT 10

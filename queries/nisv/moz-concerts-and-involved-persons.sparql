@@ -4,18 +4,21 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 
-# Shows the ID, title and names of related persons for all concerts that are part of the Dutch Broadcast Concert (MOZ) collection, in alphabetical order of program name
-# Persons can be in the role of Artist, Creator, or they may be mentioned in the concert, or the concert may be about them
+# Shows the ID, title and names of related persons for all concerts that are part of the 
+# Dutch Broadcast Concert (MOZ) collection, in alphabetical order of program name
+# Persons can be in the role of Artist, Creator, or they may be mentioned in the concert, 
+# or the concert may be about them
 # Persons in the MOZ collection are only linked at the level of the concert (programme) itself
-SELECT DISTINCT ?programUri ?programName ?entityName
-WHERE {
-   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
-   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series .  
-   ?programUri sdo:name ?programName  .
 
-    ?programUri a sdo:CreativeWork ;
-      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity  .
-    ?entity skos:prefLabel ?entityName
-  
+SELECT DISTINCT ?programUri ?programName ?entityName
+WHERE
+{
+ ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
+ ?programUri sdo:partOfSeason/sdo:partOfSeries ?series ;
+             sdo:name ?programName;
+             a sdo:CreativeWork ;
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
+ ?entity skos:prefLabel ?entityName .
 } ORDER BY ?programName
+

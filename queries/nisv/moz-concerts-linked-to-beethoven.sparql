@@ -3,18 +3,21 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 
-# Shows the ID and title for all concerts that are part of the Dutch Broadcast Concert (MOZ) collection and are linked to Beethoven, in alphabetical order
-# Beethoven could be linked in the role of Artist, Creator, or he may be mentioned in the concert, or the concert may be about him
+# Shows the ID and title for all concerts that are part of the Dutch Broadcast Concert 
+# (MOZ) collection and are linked to Beethoven, in alphabetical order
+# Beethoven could be linked in the role of Artist, Creator, or he may be mentioned in 
+# the concert, or the concert may be about him
 # Persons in the MOZ collection are only linked at the level of the concert (programme) itself
-SELECT DISTINCT ?programUri ?programName 
-WHERE {
-   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
-   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series .  
-   ?programUri sdo:name ?programName  .
 
-    ?programUri a sdo:CreativeWork ;
-      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-      (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity  .
-    ?entity skos:prefLabel "Beethoven, Ludwig van"@nl
-  
+SELECT DISTINCT ?programUri ?programName 
+WHERE
+{
+ ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
+ ?programUri sdo:partOfSeason/sdo:partOfSeries ?series ;
+             a sdo:CreativeWork ;
+             sdo:name ?programName ;
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
+ ?entity skos:prefLabel "Beethoven, Ludwig van"@nl
 } ORDER BY ?programName
+

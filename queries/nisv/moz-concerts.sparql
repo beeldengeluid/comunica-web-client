@@ -3,10 +3,14 @@
 
 PREFIX sdo: <https://schema.org/>
 
-# Show the ID and title of all concerts that are part of the Dutch Broadcast Concert (MOZ) collection, in alphabetical order
+# Show the ID and title of all concerts that are part of the Dutch Broadcast Concert 
+# (MOZ) collection, in alphabetical order
+
 SELECT DISTINCT ?programUri ?programName
-WHERE {
-   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
-   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series . 
-   ?programUri sdo:name ?programName . 
-   }  ORDER BY ?programName
+WHERE
+{
+ ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
+ ?programUri sdo:partOfSeason/sdo:partOfSeries ?series ;
+             sdo:name ?programName . 
+} ORDER BY ?programName
+
