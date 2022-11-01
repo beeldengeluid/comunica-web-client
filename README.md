@@ -4,7 +4,7 @@ A Web-based client to query the Web of Linked Data, using SPARQL or GraphQL-LD, 
 
 This repo simply includes [@comunica/web-client-generator](https://github.com/comunica/jQuery-Widget.js/) as a dependency and calls it in a build script to generate a static site containing the web client.
 
-A curated set of data sources and example queries is forthcoming.
+A curated set of example queries is included in the [/queries](https://github.com/beeldengeluid/comunica-web-client/tree/main/queries) folder.
 
 ## Local usage
 
