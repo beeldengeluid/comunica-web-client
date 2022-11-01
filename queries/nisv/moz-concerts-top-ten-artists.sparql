@@ -14,8 +14,8 @@ WHERE
   SELECT (COUNT(DISTINCT ?programUri) as ?count) ?name
   WHERE
   {
-   ?series sdo:name "Muziekopnamen Zendgemachtigden (MOZ)"^^xsd:string .
-   ?programUri sdo:partOfSeason/sdo:partOfSeries ?series ;
+   # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
                a sdo:CreativeWork ;
                sdo:byArtist/sdo:byArtist ?entity .
    ?entity skos:prefLabel ?name
