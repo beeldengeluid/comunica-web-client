@@ -1,49 +1,23 @@
 # MOZ Concerts linked to Beethoven
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX schema: <http://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
-SELECT DISTINCT ?program_uri ?programName 
-WHERE {
-  ?program_uri <https://schema.org/name> ?programName . 
-?program_uri sdo:partOfSeason ?season . ?season sdo:partOfSeries ?series . ?series <https://schema.org/name> ?seriesName 
-  FILTER( contains(?seriesName,"Muziekopnamen Zendgemachtigden (MOZ)"))
-  {
-    ?program_uri a sdo:CreativeWork ;
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-    ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?program_uri sdo:isPartOfSeason ?season .
+# Shows the ID and title for all concerts that are part of the Dutch Broadcast Concert 
+# (MOZ) collection and are linked to Beethoven, in alphabetical order
+# Beethoven could be linked in the role of Artist, Creator, or he may be mentioned in 
+# the concert, or the concert may be about him
+# Persons in the MOZ collection are only linked at the level of the concert (programme) itself
 
-    ?season  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+SELECT DISTINCT ?programUri ?programName 
+WHERE
+{
+ # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+ ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+             a sdo:CreativeWork ;
+             sdo:name ?programName ;
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
+             # match for the GTAA thesaurus ID for Beethoven
+            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) <http://data.beeldengeluid.nl/gtaa/80808> .
+} ORDER BY ?programName
 
-    ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?program_uri sdo:isPartOfSeason/sdo:isPartOfSeries ?series .
-
-    ?series  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skos:prefLabel ?entityName
-  }
-  UNION
-  {
-    ?scene sdo:hasPart ?program_uri.
-
-    ?scene  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skos:prefLabel ?entityName 
-  }
-  FILTER contains(?entityName, "Beethoven")
-} LIMIT 100

@@ -1,0 +1,24 @@
+# MOZ Concerts - top 10 creators
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+
+# Shows the name and number of concerts for the top 10 most frequently occurring 
+# creators in concerts that are part of the Dutch Broadcast Concert (MOZ) collection
+
+SELECT ?count ?name
+WHERE
+{
+ {
+  SELECT (COUNT(DISTINCT ?programUri) as ?count) ?name
+  WHERE
+  {
+   # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+               a sdo:CreativeWork ;
+               sdo:creator/sdo:creator ?entity  .
+   ?entity skos:prefLabel ?name
+  } GROUP BY ?entity ?name 
+ }
+} ORDER BY desc(?count) LIMIT 10
+
