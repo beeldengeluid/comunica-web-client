@@ -1,0 +1,15 @@
+# Items with (OpenImages) content reference
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Show content URL for items that are also published on Open Images
+SELECT ?item ?name ?content_url ?encoding
+WHERE {
+  ?item sdo:name ?title ;
+        sdo:associatedMedia [
+      sdo:encodingFormat ?encoding ;
+      sdo:contentUrl ?content_url
+    ] ;
+} LIMIT 10
