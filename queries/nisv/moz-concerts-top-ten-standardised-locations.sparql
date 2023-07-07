@@ -1,0 +1,31 @@
+# MOZ Concerts - top 10 standardised locations
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Shows the name and number of concerts for the top 10 most frequently 
+# occurring standardised locations in concerts that are part of the Dutch Broadcast Concert (MOZ) collection
+# This does not include locations that are not standardised
+
+SELECT ?count ?locationLabel
+WHERE
+{
+ {
+  SELECT (COUNT(DISTINCT ?programUri) as ?count) ?locationLabel
+  WHERE
+  {
+   # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+  {
+    ?programUri sdo:locationCreated/sdo:sameAs ?location . 
+    ?location rdfs:label ?locationLabel
+  }
+  UNION
+  {
+    ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs ?location . 
+    ?location rdfs:label ?locationLabel
+  }
+  } GROUP BY ?location ?locationLabel
+ }
+} ORDER BY desc(?count) LIMIT 10

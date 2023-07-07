@@ -1,0 +1,26 @@
+# MOZ Concerts - concerts per standardised location
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Show the ID and title of all concerts that are part of the Dutch Broadcast Concert 
+# and are associated with the given standardised location. 
+# Note, only locations from standardised vocabularies may be used
+# Note, you must enter the exact label for the location, including the language tag. 
+# Use the example query for location IDs and labels to find a list of available locations
+
+SELECT DISTINCT ?programUri ?programName 
+WHERE
+{
+ # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+  {
+   # specify the location at program level
+   ?programUri sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en
+  }
+  UNION  # OR
+  {
+   # specify the location at scene level
+   ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en
+  }
+} ORDER BY ?programName
