@@ -15,11 +15,18 @@ WHERE
   WHERE
   {
    # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
-   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
-               a sdo:CreativeWork ;
-               sdo:byArtist/sdo:byArtist ?entity .
-   ?entity skos:prefLabel ?name
-  } GROUP BY ?entity ?name
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+      {
+        # concerts with artist at program level
+        ?programUri sdo:byArtist/sdo:byArtist ?entity  .
+        ?entity skos:prefLabel ?name
+      }
+      UNION  # OR
+      { # concerts with artist at scene level
+        ?programUri sdo:hasPart/sdo:byArtist/sdo:byArtist ?entity  .
+        ?entity skos:prefLabel ?name
+      }
+  } GROUP BY ?entity ?name 
  }
 } ORDER BY desc(?count) LIMIT 10
 
