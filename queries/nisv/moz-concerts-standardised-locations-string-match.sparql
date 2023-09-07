@@ -9,19 +9,22 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 # and that match a given string
 # This does not include locations that are not standardised
 
-SELECT DISTINCT ?location ?locationLabel
+SELECT DISTINCT ?standardLocationEntity ?locationLabel
 WHERE
 {
    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
   {
-    ?programUri sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel .
+    ?programUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel .
     FILTER(REGEX(?locationLabel, "tilburg", "i"))
   }
   UNION
   {
-    ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel.
+    ?programUri sdo:hasPart ?sceneUri .
+    ?sceneUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel.
     FILTER(REGEX(?locationLabel, "tilburg", "i"))
   }
 } ORDER BY ?locationLabel

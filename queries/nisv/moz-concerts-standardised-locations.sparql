@@ -8,17 +8,20 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 # that are part of the Dutch Broadcast Concert (MOZ) collection 
 # This does not include locations that are not standardised
 
-SELECT DISTINCT ?location ?locationLabel
+SELECT DISTINCT ?standardLocationEntity ?locationLabel
 WHERE
 {
    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
   {
-    ?programUri sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel
+    ?programUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel
   }
   UNION
   {
-    ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel
+    ?programUri sdo:hasPart ?sceneUri .
+    ?sceneUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel
   }
 } ORDER BY ?locationLabel
