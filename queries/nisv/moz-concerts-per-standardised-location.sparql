@@ -13,15 +13,19 @@ SELECT DISTINCT ?programUri ?programName
 WHERE
 {
  # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
-  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
-              sdo:name ?programName . 
+  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+    ?programUri sdo:name ?programName . 
   {
    # specify the location at program level
-   ?programUri sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en
+   ?programUri sdo:locationCreated ?location .
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
+    ?location sdo:sameAs ?standardLocationEntity . 
   }
   UNION  # OR
   {
    # specify the location at scene level
-   ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en
+   ?programUri sdo:hasPart/sdo:locationCreated ?location .
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
+    ?location sdo:sameAs ?standardLocationEntity . 
   }
 } ORDER BY ?programName

@@ -21,15 +21,19 @@ WHERE
 {
   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
   {
-    ?programUri sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en .
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?programUri sdo:locationCreated ?location .
     ?programUri (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
     ?entity skos:prefLabel ?entityLabel .
   }
   UNION
   {
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?sceneUri sdo:locationCreated ?location .
     ?programUri sdo:hasPart ?sceneUri.
-    ?sceneUri sdo:locationCreated/sdo:sameAs/rdfs:label "Muziekgebouw aan 't IJ"@en .
     ?sceneUri
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .

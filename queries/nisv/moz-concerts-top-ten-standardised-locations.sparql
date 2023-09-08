@@ -18,14 +18,17 @@ WHERE
    # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
   {
-    ?programUri sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel
+    ?programUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel
   }
   UNION
   {
-    ?programUri sdo:hasPart/sdo:locationCreated/sdo:sameAs ?location . 
-    ?location rdfs:label ?locationLabel
+    ?programUri sdo:hasPart ?sceneUri .
+    ?sceneUri sdo:locationCreated ?location .
+    ?location sdo:sameAs ?standardLocationEntity . 
+    ?location sdo:name ?locationLabel
   }
-  } GROUP BY ?location ?locationLabel
+  } GROUP BY ?standardLocationEntity ?locationLabel
  }
 } ORDER BY desc(?count) LIMIT 10
