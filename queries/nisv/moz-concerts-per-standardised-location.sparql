@@ -1,3 +1,5 @@
+# MOZ Concerts - concerts per standardised location
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
