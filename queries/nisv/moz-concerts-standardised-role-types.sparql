@@ -1,0 +1,24 @@
+# MOZ Concerts - IDs of standardised role types
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+# Shows the IDs of the types
+# of standardised roles (from Wikidata and Uitvoeringsmedium ontologies)
+
+SELECT DISTINCT ?roleType 
+WHERE
+{
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+  {
+    ?programUri (sdo:creator|sdo:byArtist)/sdo:roleName/rdf:type ?roleType . 
+  }
+  UNION
+  {   
+    ?programUri sdo:hasPart/(sdo:creator|sdo:byArtist)/sdo:roleName/rdf:type ?roleType .
+  }
+
+} 

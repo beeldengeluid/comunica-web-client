@@ -1,0 +1,27 @@
+# MOZ Concerts - concerts per standardised role
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Show the ID and title of all concerts that are part of the Dutch Broadcast Concert 
+# and are associated with the given standardised role. 
+# Note, only roles from standardised vocabularies may be used
+# Note, you must enter the exact label for the role, including the language tag. 
+# Use the example query for role IDs and labels to find a list of available roles
+
+SELECT DISTINCT ?programUri ?programName 
+WHERE
+{
+ # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+    ?programUri sdo:name ?programName . 
+  {
+   # specify the role at program level
+    ?programUri (sdo:byArtist|sdo:creator)/sdo:roleName/rdfs:label "percussie"@nl.       
+  }
+  UNION  # OR
+  {
+   # specify the role at scene level
+   ?programUri sdo:hasPart/(sdo:byArtist|sdo:creator)/sdo:roleName/rdfs:label "percussie"@nl.
+  }
+} ORDER BY ?programName

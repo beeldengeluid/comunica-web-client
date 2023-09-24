@@ -1,0 +1,37 @@
+# MOZ Concerts - persons per standardised role
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Shows the ID and name of related persons for all concerts that are part of the 
+# Dutch Broadcast Concert (MOZ) collection and are associated with a particular
+# standardised role
+# Note that musical groups are also included in these results
+# Note that only concerts/scenes explicitly associated with both the person
+# and the role are included
+# Note, the role must be from a standardised vocabulary, and you must 
+# enter the exact label, including the language tag. 
+# Use the example query for role IDs and labels to find a list of available roles
+
+SELECT DISTINCT ?entity ?p ?entityLabel
+WHERE
+{
+  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+  {
+   # specify the role at program level
+    ?programUri (sdo:byArtist|sdo:creator) ?role .
+    ?role sdo:roleName/rdfs:label "percussie"@nl.
+    ?role (sdo:byArtist|sdo:creator) ?entity.
+    ?entity skos:prefLabel ?entityLabel .
+  }
+  UNION
+  {
+   # specify the role at scene level
+    ?programUri sdo:hasPart/(sdo:byArtist|sdo:creator) ?role .
+    ?role sdo:roleName/rdfs:label "percussie"@nl.
+    ?role (sdo:byArtist|sdo:creator) ?entity.
+    ?entity skos:prefLabel ?entityLabel .
+  }
+}
