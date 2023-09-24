@@ -1,12 +1,13 @@
 # Aan een persoon gerelateerde personen (via een programma)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
-select DISTINCT ?other_person_uri ?other_person_name
+SELECT DISTINCT ?other_person_uri ?other_person_name 
 WHERE {
   VALUES ?persoons_namen_uri {gtaa:126347}  # note: edit the GTAA URI
   ?programId a sdo:CreativeWork .
@@ -17,6 +18,6 @@ WHERE {
   ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
   (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?other_person_uri .
 
-  ?other_person_uri skos:prefLabel ?other_person_name .
+  ?other_person_uri skosxl:prefLabel/skosxl:literalForm ?other_person_name .
   FILTER(?other_person_uri != ?persoons_namen_uri)
 }

@@ -1,6 +1,7 @@
 # MOZ Concerts - top 10 creators
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 
 # Shows the name and number of concerts for the top 10 most frequently occurring 
@@ -18,12 +19,12 @@ WHERE
       {
         # concerts with creator at program level
         ?programUri sdo:creator/sdo:creator ?entity  .
-        ?entity skos:prefLabel ?name
+        ?entity skosxl:prefLabel/skosxl:literalForm ?name
       }
       UNION  # OR
       { # concerts with creator at scene level
         ?programUri sdo:hasPart/sdo:creator/sdo:creator ?entity  .
-        ?entity skos:prefLabel ?name
+        ?entity skosxl:prefLabel/skosxl:literalForm ?name
       }
   } GROUP BY ?entity ?name 
  }

@@ -1,7 +1,7 @@
 # MOZ Concerts and involved persons
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 
 # Shows the ID and name of related persons for all concerts that are part of the 
@@ -18,7 +18,7 @@ WHERE
              sdo:name ?programName;
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
- ?entity skos:prefLabel ?entityLabel .
+ ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
   }
   UNION
   {
@@ -27,5 +27,5 @@ WHERE
              ?sceneUri
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
- ?entity skos:prefLabel ?entityLabel .}
-} 
+ ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .}
+}
