@@ -1,7 +1,7 @@
 # MOZ Concerts - persons per standardised role
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -24,7 +24,7 @@ WHERE
     ?programUri (sdo:byArtist|sdo:creator) ?role .
     ?role sdo:roleName/rdfs:label "percussie"@nl.
     ?role (sdo:byArtist|sdo:creator) ?entity.
-    ?entity skos:prefLabel ?entityLabel .
+    ?entity skosxl:prefLabel/skosxl:literalForm  ?entityLabel .
   }
   UNION
   {
@@ -32,6 +32,6 @@ WHERE
     ?programUri sdo:hasPart/(sdo:byArtist|sdo:creator) ?role .
     ?role sdo:roleName/rdfs:label "percussie"@nl.
     ?role (sdo:byArtist|sdo:creator) ?entity.
-    ?entity skos:prefLabel ?entityLabel .
+    ?entity skosxl:prefLabel/skosxl:literalForm  ?entityLabel .
   }
 }
