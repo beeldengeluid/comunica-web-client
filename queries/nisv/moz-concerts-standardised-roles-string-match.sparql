@@ -1,0 +1,26 @@
+# MOZ Concerts - matching standardised roles
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Shows the ID and label of standardised roles associated with concerts 
+# that are part of the Dutch Broadcast Concert (MOZ) collection 
+# and that match a given string
+# This does not include roles that are not standardised
+
+SELECT DISTINCT ?standardRoleEntity ?roleLabel
+WHERE
+{
+   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
+  {
+    ?programUri (sdo:byArtist|sdo:creator)/sdo:roleName ?standardRoleEntity . ?standardRoleEntity rdfs:label ?roleLabel .
+    FILTER(REGEX(?roleLabel, "piano", "i"))
+  }
+  UNION
+  {
+    ?programUri sdo:hasPart/(sdo:byArtist|sdo:creator)/sdo:roleName ?standardRoleEntity . ?standardRoleEntity rdfs:label ?roleLabel .
+    FILTER(REGEX(?roleLabel, "piano", "i"))
+  }
+} ORDER BY ?roleLabel
