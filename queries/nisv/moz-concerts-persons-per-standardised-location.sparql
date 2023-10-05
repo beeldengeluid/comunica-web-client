@@ -1,6 +1,7 @@
 # MOZ Concerts - persons per standardised location
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -26,7 +27,7 @@ WHERE
     ?programUri sdo:locationCreated ?location .
     ?programUri (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
-    ?entity skos:prefLabel ?entityLabel .
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
   }
   UNION
   {
@@ -37,6 +38,6 @@ WHERE
     ?sceneUri
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
             (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
-    ?entity skos:prefLabel ?entityLabel .
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
   }
 }

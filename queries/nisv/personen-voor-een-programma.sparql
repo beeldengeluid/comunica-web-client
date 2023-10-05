@@ -3,9 +3,10 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 
 # Personen voor een programma (ook via series/seizoen/scene description)
+
 SELECT ?entity ?entityName
 WHERE {
   VALUES ?program_uri {<http://data.beeldengeluid.nl/id/program/2101608160143012931>}
@@ -13,7 +14,7 @@ WHERE {
     ?program_uri a sdo:CreativeWork ;
       (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
       (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-    ?entity skos:prefLabel ?entityName
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
   }
   UNION
   {
@@ -22,7 +23,7 @@ WHERE {
     ?season  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
     (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
 
-    ?entity skos:prefLabel ?entityName
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
   }
   UNION
   {
@@ -31,7 +32,7 @@ WHERE {
     ?series  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
     (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
 
-    ?entity skos:prefLabel ?entityName
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
   }
   UNION
   {
@@ -40,6 +41,6 @@ WHERE {
     ?scene  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
     (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
 
-    ?entity skos:prefLabel ?entityName 
+    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName 
   }
 }

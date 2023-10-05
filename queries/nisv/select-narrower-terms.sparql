@@ -1,6 +1,8 @@
 # Onderwerpen die via een narrower relatie verbonden zijn aan een onderwerp.
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -10,6 +12,6 @@ SELECT DISTINCT ?narrow_term ?pref_label ?concept_scheme
 WHERE {
     VALUES ?onderwerp { gtaa:27098 }
     ?onderwerp skos:narrower ?narrow_term .
-    ?narrow_term skos:prefLabel ?pref_label ;
+    ?narrow_term skosxl:prefLabel/skosxl:literalForm ?pref_label ;
         skos:inScheme ?concept_scheme
 }
