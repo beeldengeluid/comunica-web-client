@@ -1,4 +1,5 @@
 # List identifiers and titles of Amateur Film Platform items
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
 SELECT DISTINCT ?program_id ?title
@@ -11,6 +12,6 @@ WHERE {
     OPTIONAL {
       ?program_id sdo:name ?program_title 
     }
-    BIND(STR(LCASE(COALESCE(?program_title, 'Untitled'^^xsd:string))) AS ?title)
+    BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
   }
 }
