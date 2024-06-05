@@ -1,17 +1,27 @@
-# List identifiers and titles of Amateur Film Platform items
+# List identifiers of Amateur Film items
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
 SELECT DISTINCT ?program_id ?title
 WHERE {
   GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
-    ?series_id a sdo:CreativeWorkSeries ;
-               sdo:additionalType ?series_additional_type .
-    FILTER(CONTAINS(STR(?series_additional_type), 'Smalfilm'))
-    ?program_id sdo:partOfSeries ?series_id .
-    OPTIONAL {
-      ?program_id sdo:name ?program_title 
+    {
+      # PROGRAM THAT IS PART OF SERIES THAT HAS PROPERTY ADDITIONALTYPE
+      ?program_id sdo:partOfSeries/sdo:additionalType ?series_additional_type .
+		  FILTER(CONTAINS(STR(?series_additional_type), 'Smalfilm'))
+      OPTIONAL {
+        ?program_id sdo:name ?program_title 
+      }
+    }
+    UNION
+    {
+      # PROGRAM THAT HAS PROPERTY ADDITIONALTYPE
+      ?program_id sdo:additionalType ?program_additional_type .
+      FILTER(CONTAINS(STR(?program_additional_type), 'Smalfilm'))
+      OPTIONAL {
+        ?program_id sdo:name ?program_title 
+      }
+    }
     }
     BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
   }
-}
