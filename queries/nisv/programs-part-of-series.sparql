@@ -1,0 +1,14 @@
+# Show the ID and title of all program items (or CreativeWork) that are part of a series (CreativeWorkSeries)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?programUri ?title
+WHERE {
+    VALUES ?series_id {
+        <http://data.beeldengeluid.nl/id/series/2102306290351519931>
+    }
+    ?programUri sdo:partOfSeries ?series_id ;
+                sdo:name ?title . 
+} 
+ORDER BY ?programName
