@@ -24,3 +24,4 @@ WHERE {
     ) AS ?title
   )
 }
+LIMIT 10
