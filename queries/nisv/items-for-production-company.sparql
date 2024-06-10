@@ -1,0 +1,13 @@
+# Show the ID and title of all items that are related to a production company.
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX sdo: <https://schema.org/>
+PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
+
+SELECT ?item_id ?title
+WHERE {
+  VALUES ?production_company_uri { gtaa:31060 }  # note: edit the GTAA URI
+  ?item_id sdo:productionCompany/sdo:productionCompany ?production_company_uri .
+  ?item_id sdo:name ?item_title .
+  BIND(STR(?item_title) AS ?title)
+}
