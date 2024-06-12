@@ -3,19 +3,14 @@
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
-
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?item ?url_gpp ?title ?license
 WHERE {
-  VALUES ?onderwerp {gtaa:27098}  # note: edit the concept id
   ?item rdf:type sdo:CreativeWork ;
-        (sdo:about|sdo:mentions) ?onderwerp ;
+        (sdo:about|sdo:mentions) <http://data.beeldengeluid.nl/gtaa/27098> ;  # note: edit the concept id
         sdo:name ?title ;
         sdo:url ?url_gpp ;
         sdo:license ?license ;
-        sdo:conditionsOfAccess ?show_browse .
-
-  # Toon alleen items die ook op GPP te bekijken/beluisteren zijn.
-  FILTER(CONTAINS(?show_browse, 'True'))
+        sdo:conditionsOfAccess "View/listen to media online at the item's URL: True"^^xsd:string .
 }
 LIMIT 100
