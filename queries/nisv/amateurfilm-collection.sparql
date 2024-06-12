@@ -1,0 +1,20 @@
+# Amateur Film collection items
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?program_id ?title
+WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
+    {
+      ?program_id sdo:partOfSeries/sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+    }
+    UNION
+    {
+      ?program_id sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+    }
+    }
+    OPTIONAL {
+      ?program_id sdo:name ?program_title 
+    }
+    BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
+  }
