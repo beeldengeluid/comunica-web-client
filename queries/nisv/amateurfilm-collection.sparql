@@ -12,9 +12,10 @@ WHERE {
     {
       ?program_id sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
-    }
-    OPTIONAL {
-      ?program_id sdo:name ?program_title 
-    }
-    BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
   }
+  ?program_id a sdo:CreativeWork
+  OPTIONAL {
+    ?program_id sdo:name ?program_title
+  }
+  BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
+}
