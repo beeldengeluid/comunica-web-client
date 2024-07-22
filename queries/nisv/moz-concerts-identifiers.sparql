@@ -1,0 +1,10 @@
+# MOZ collection identifiers
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?s
+WHERE {
+ # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+ ?s sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> . 
+}
