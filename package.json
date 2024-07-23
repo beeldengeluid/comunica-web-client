@@ -13,7 +13,7 @@
   "author": "Philo van Kemenade",
   "license": "MIT",
   "dependencies": {
-    "@comunica/web-client-generator": "^1.5.4"
+    "@comunica/web-client-generator": "^2.0.0"
   },
   "engines": {
     "node": "16.x"
