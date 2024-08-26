@@ -1,0 +1,11 @@
+# Get the Wikidata ID for a GTAA person ID
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX gtaa:<http://data.beeldengeluid.nl/gtaa/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT *
+WHERE {
+  VALUES ?gtaa_id {gtaa:80808}
+  ?gtaa_id skos:exactMatch ?wikidata_id .
+  FILTER(STRSTARTS(STR(?wikidata_id), "http://www.wikidata.org/entity/"))  
+}
