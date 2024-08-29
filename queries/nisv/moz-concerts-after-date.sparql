@@ -1,0 +1,20 @@
+# MOZ Concerts published after DATE
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sdo: <https://schema.org/>
+
+# Show the ID and title of concerts that are part of the Dutch Broadcast Concert 
+# (MOZ) collection, published after DATE, in ascending date order.
+
+SELECT DISTINCT ?programUri ?programName ?date_published
+WHERE
+{
+    VALUES ?date_begin { "2024-01-01"^^xsd:dateTime }   # set the begin date
+ # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
+ ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+             sdo:name ?programName ;
+             sdo:datePublished ?date_published . 
+  BIND(STRDT(CONCAT(?date_published, 'T00:00:00'), xsd:dateTime) AS ?date_time)
+  FILTER(?date_time > ?date_begin )
+} ORDER BY ?date_published
