@@ -1,0 +1,17 @@
+# Amateur Film collection item identifiers
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?s
+WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
+    {
+      ?s sdo:partOfSeries/sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+    }
+    UNION
+    {
+      ?s sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+    }
+  }
+  ?s a sdo:CreativeWork
+}
