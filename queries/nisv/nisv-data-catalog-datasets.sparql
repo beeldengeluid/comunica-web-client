@@ -1,0 +1,12 @@
+# Show datasets from the NISV data catalog
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?s ?title
+WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/datacatalog/> {
+    ?s a sdo:Dataset ;
+       sdo:name ?name
+    BIND(STR(?name) as ?title)
+  }
+}
