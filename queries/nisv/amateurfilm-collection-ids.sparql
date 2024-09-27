@@ -1,4 +1,4 @@
-# Amateur Film collection item identifiers
+# Amateur Film collection item identifiers (available online)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
@@ -13,5 +13,9 @@ WHERE {
       ?s sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
   }
-  ?s a sdo:CreativeWork
+  ?s a sdo:CreativeWork .
+  
+  # Filter items available online on General Public Portal.
+  ?s sdo:conditionsOfAccess ?show_browse
+  FILTER(CONTAINS(?show_browse, 'True'))
 }
