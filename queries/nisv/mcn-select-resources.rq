@@ -1,0 +1,24 @@
+# Find available online resources about mobile heritage.
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# Show content URL for items that are also published on Open Images
+SELECT ?item ?name ?content_url ?encoding ?pref_label
+WHERE {
+  VALUES ?gtaa_uri { 
+    <http://data.beeldengeluid.nl/gtaa/29690>  # raceauto's
+    <http://data.beeldengeluid.nl/gtaa/25607> # "elektrische auto's"
+  } 
+  ?item sdo:name ?title ;
+        sdo:about ?gtaa_uri ;
+        sdo:associatedMedia [
+      sdo:encodingFormat ?encoding ;
+      sdo:contentUrl ?content_url       # only available for Open Images items
+    ] .
+  ?gtaa_uri skos:prefLabel ?pref_label
+} LIMIT 10
