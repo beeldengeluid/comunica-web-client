@@ -1,4 +1,4 @@
-# Find available online resources about mobile heritage.
+# MCN Find available online resources about mobile heritage.
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
 PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
