@@ -1,0 +1,11 @@
+# List titles of NISV series
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?series_title ?series_id
+WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
+    ?series_id a sdo:CreativeWorkSeries ;
+               sdo:name ?series_title
+  }
+}
+LIMIT 10
