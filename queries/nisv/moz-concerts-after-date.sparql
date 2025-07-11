@@ -10,11 +10,10 @@ PREFIX sdo: <https://schema.org/>
 SELECT DISTINCT ?programUri ?programName ?date_published
 WHERE
 {
-    VALUES ?date_begin { "2024-01-01"^^xsd:dateTime }   # set the begin date
+    VALUES ?date_begin { "2024-01-01"^^xsd:date }   # set the begin date
  # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
              sdo:name ?programName ;
              sdo:datePublished ?date_published . 
-  BIND(STRDT(CONCAT(?date_published, 'T00:00:00'), xsd:dateTime) AS ?date_time)
-  FILTER(?date_time > ?date_begin )
+  FILTER(?date_published > ?date_begin )
 } ORDER BY ?date_published
