@@ -1,0 +1,15 @@
+# Search for a title in the catalogue (series or programs)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?s ?title
+WHERE {
+    VALUES ?query { "brainstorm" }
+  VALUES ?type {
+    sdo:CreativeWorkSeries 
+    sdo:CreativeWork
+  }
+  ?s a ?type ; sdo:name ?title .
+  FILTER regex(?title, ?query, "i" )
+}
+LIMIT 10
