@@ -1,0 +1,29 @@
+# Search for a title in the title thesaurus (series only)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?s ?pref_label
+WHERE {
+    VALUES ?query { "brainstorm" }
+  VALUES ?cs { <http://data.beeldengeluid.nl/gtaa/Programmatitels> }
+
+  ?s a skos:Concept ;
+     skos:inScheme ?cs ;
+     skos:prefLabel ?pref_label .
+    {
+      ?s skosxl:prefLabel/skosxl:literalForm ?label
+    }
+    UNION
+    {
+      ?s skosxl:altLabel/skosxl:literalForm ?label
+    }
+    UNION
+    {
+      ?s skosxl:hiddenLabel/skosxl:literalForm ?label
+    }
+     FILTER regex(?label, ?query, "i" )
+}
+LIMIT 10
