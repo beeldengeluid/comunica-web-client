@@ -1,6 +1,7 @@
 # Handelsplaten collection item identifiers
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
+
 SELECT ?s
 WHERE {
 VALUES ?series {<http://data.beeldengeluid.nl/id/series/2101608030026064731>}
