@@ -1,0 +1,11 @@
+# Items with sdo:workExample containing a reference to Peertube.
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+# Show items that are published for Onsland on Peertube
+SELECT ?s # ?title ?peertube_url
+WHERE {
+  ?s sdo:name ?title ;
+     sdo:workExample ?peertube_url .
+  ?peertube_url sdo:conditionsOfAccess "This video is password protected and only available for Onsland."@en
+} LIMIT 100
