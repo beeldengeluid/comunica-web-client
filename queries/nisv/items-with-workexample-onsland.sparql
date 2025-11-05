@@ -1,8 +1,8 @@
-# Items with sdo:workExample containing a reference to Peertube.
+# Show items that are published for Onsland on Peertube
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
-# Show items that are published for Onsland on Peertube
+# Items with sdo:workExample containing a reference to Peertube.
 SELECT ?s # ?title ?peertube_url
 WHERE {
   ?s sdo:name ?title ;
