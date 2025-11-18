@@ -4,9 +4,9 @@ PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-SELECT DISTINCT ?item ?url_gpp ?title ?license
+SELECT DISTINCT ?s ?url_gpp ?title ?license
 WHERE {
-  ?item rdf:type sdo:CreativeWork ;
+  ?s rdf:type sdo:CreativeWork ;
         (sdo:about|sdo:mentions) <http://data.beeldengeluid.nl/gtaa/27098> ;  # note: edit the concept id
         sdo:name ?title ;
         sdo:url ?url_gpp ;

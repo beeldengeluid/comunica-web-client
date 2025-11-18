@@ -8,13 +8,13 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 # Show content URL for items that are also published on Open Images
-SELECT ?item ?name ?content_url ?encoding ?pref_label
+SELECT ?s ?name ?content_url ?encoding ?pref_label
 WHERE {
   VALUES ?gtaa_uri { 
     <http://data.beeldengeluid.nl/gtaa/29690>  # raceauto's
     <http://data.beeldengeluid.nl/gtaa/25607> # "elektrische auto's"
   } 
-  ?item sdo:name ?title ;
+  ?s sdo:name ?title ;
         sdo:about ?gtaa_uri ;
         sdo:associatedMedia [
       sdo:encodingFormat ?encoding ;

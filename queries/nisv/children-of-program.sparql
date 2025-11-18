@@ -5,13 +5,13 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 # Select all scene description for a program
-SELECT DISTINCT ?program ?program_title ?scene_description ?scene_title
+SELECT DISTINCT ?s ?program_title ?scene_description ?scene_title
 WHERE {
-  VALUES ?program {
+  VALUES ?s {
     <http://data.beeldengeluid.nl/id/program/2101608190180567031>
   }
 
-  ?program rdf:type sdo:CreativeWork ;
+  ?s rdf:type sdo:CreativeWork ;
            sdo:name ?program_title ;
            sdo:hasPart ?scene_description .
   ?scene_description sdo:name ?scene_title.

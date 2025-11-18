@@ -4,16 +4,16 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
 
-SELECT ?program_id ?title ?series_title ?season_title
+SELECT ?s ?title ?series_title ?season_title
 WHERE {
   GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
-  ?program_id sdo:name ?title
+  ?s sdo:name ?title
   OPTIONAL {
-    ?program_id sdo:partOfSeries ?series_id.
+    ?s sdo:partOfSeries ?series_id.
     ?series_id sdo:name ?series_title
   }
   OPTIONAL {
-    ?program_id sdo:partOfSeason ?season_id.
+    ?s sdo:partOfSeason ?season_id.
     ?season_id sdo:name ?season_title
   }
   }

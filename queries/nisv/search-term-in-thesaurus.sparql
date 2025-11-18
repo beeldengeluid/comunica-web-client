@@ -1,4 +1,4 @@
-# Zoek in vrije tekst naar een thesaurus term
+# Search in full text for thesaurus term
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
@@ -6,11 +6,11 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX gtaa:<http://data.beeldengeluid.nl/gtaa/>
 
-SELECT DISTINCT ?concept_uri ?pref_label ?concept_scheme
+SELECT DISTINCT ?s ?pref_label ?concept_scheme
 WHERE {
     VALUES ?query { "oorlog" }
-  ?concept_uri (skos:prefLabel|skos:altLabel|skos:hiddenLabel) ?label .
-  ?concept_uri skos:prefLabel ?pref_label .
-    ?concept_uri skos:inScheme ?concept_scheme
+  ?s (skos:prefLabel|skos:altLabel|skos:hiddenLabel) ?label .
+  ?s skos:prefLabel ?pref_label .
+    ?s skos:inScheme ?concept_scheme
   FILTER regex(?label, ?query, "i" )
 }
