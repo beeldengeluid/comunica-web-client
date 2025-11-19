@@ -1,15 +1,15 @@
-# Aan een persoon gerelateerde onderwerpen (via catalogus item's)
+# Select subject terms related to a person via the catalogue
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sdo: <https://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
+# Select subject terms related to a person via the catalogue
 SELECT DISTINCT ?keyword
 WHERE {
     VALUES ?persoons_namen_uri {gtaa:85227}  # note: edit the GTAA URI
-  ?s (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?persoons_namen_uri .
+  ?s (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?persoons_namen_uri .
   ?s sdo:about ?onderwerp_uri .
-  ?onderwerp_uri skos:prefLabel ?keyword
+  ?onderwerp_uri skos:inScheme <http://data.beeldengeluid.nl/gtaa/Onderwerpen> ;
+                 skos:prefLabel ?keyword
 }

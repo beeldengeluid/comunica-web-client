@@ -1,31 +1,44 @@
 # MOZ Concerts and involved persons
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
-PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 
-# Shows the ID and name of related persons for all concerts that are part of the 
-# Dutch Broadcast Concert (MOZ) collection, in alphabetical order of program name
-# Persons can be in the role of Artist, Creator, or they may be mentioned in the concert, 
-# or the concert may be about them
-# Note that musical groups are also included in these results
+# Shows the ID and name of related persons for concerts that are part of the 
+# Dutch Broadcast Concert (MOZ) collection, in alphabetical order of program name.
+# Persons can be in the role of Artist, Creator, or the concert may be about them.
+# Note that musical groups are also included in these results.
 
 SELECT DISTINCT ?entity ?entityLabel
 WHERE
 {
+  # select items with entity linked at program level
   {
- ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
-             sdo:name ?programName;
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
- ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
+    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+                sdo:name ?programName;
+                (sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?entity .
+    ?entity skos:prefLabel ?entityLabel .
   }
   UNION
   {
- ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
-    ?programUri sdo:hasPart ?sceneUri.
-             ?sceneUri
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
- ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .}
+    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+                sdo:name ?programName;
+                sdo:about ?entity .
+    ?entity skos:prefLabel ?entityLabel .
+  }
+  # select programs with entity linked at scene level
+  UNION
+  {
+    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+                sdo:hasPart ?sceneUri .
+    ?sceneUri (sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?entity .
+    ?entity skos:prefLabel ?entityLabel .
+  }
+  UNION
+  {
+    ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
+                sdo:hasPart ?sceneUri .
+    ?sceneUri sdo:about ?entity .
+    ?entity skos:prefLabel ?entityLabel .
+  }
 }

@@ -3,12 +3,12 @@
 
 PREFIX sdo: <https://schema.org/>
 
-SELECT DISTINCT ?programUri ?title
+SELECT DISTINCT ?s ?title
 WHERE {
     VALUES ?series_id {
         <http://data.beeldengeluid.nl/id/series/2102306290351519931>
     }
-    ?programUri sdo:partOfSeries ?series_id ;
+    ?s sdo:partOfSeries ?series_id ;
                 sdo:name ?title . 
 } 
 ORDER BY ?programName

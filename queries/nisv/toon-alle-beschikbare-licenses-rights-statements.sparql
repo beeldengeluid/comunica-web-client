@@ -1,11 +1,11 @@
-# Toon alle aanwezige licenties en rechten statements
+# Show all distinct licenses and rights statements in use.
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
+# Show all distinct licenses and rights statements in use.
 SELECT DISTINCT ?license
 WHERE {
-  ?item rdf:type sdo:CreativeWork .
-  ?item sdo:license ?license .
+  ?s rdf:type sdo:CreativeWork .
+  ?s sdo:license ?license .
 }

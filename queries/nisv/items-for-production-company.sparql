@@ -4,10 +4,10 @@
 PREFIX sdo: <https://schema.org/>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
-SELECT ?item_id ?title
+SELECT ?s ?title
 WHERE {
   VALUES ?production_company_uri { gtaa:31060 }  # note: edit the GTAA URI
-  ?item_id sdo:productionCompany/sdo:productionCompany ?production_company_uri .
-  ?item_id sdo:name ?item_title .
+  ?s sdo:productionCompany/sdo:productionCompany ?production_company_uri .
+  ?s sdo:name ?item_title .
   BIND(STR(?item_title) AS ?title)
 }
