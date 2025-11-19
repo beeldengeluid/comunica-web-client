@@ -1,9 +1,9 @@
-# Geef programmatitel en (indien aanwezig) titels die bij het seizoen of de serie horen (van CreativeWorkSeason of CreativeWorkSeries).
+# Show a program title from catalogue, plus (optionally) the series/season title.
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
 PREFIX sdo: <https://schema.org/>
 
+# Show a program title from catalogue, plus (optionally) the series/season title.
 SELECT ?s ?title ?series_title ?season_title
 WHERE {
   GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {

@@ -1,18 +1,13 @@
 # Items related to 'Tweede Wereldoorlog' (WOII), that are playable online (via GPP)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
-PREFIX  xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?s ?url_gpp ?title
 WHERE {
-    # "Tweede Wereldoorlog" is onderdeel van Namen (dus niet in Onderwerpen)
-    VALUES ?wo2 {gtaa:72531}
-
-    ?s sdo:mentions/sdo:mentions ?wo2 ; 
-          sdo:name ?title ; 
-          sdo:url ?url_gpp ;
-          sdo:conditionsOfAccess "View/listen to media online at the item's URL: True"^^xsd:string .
+  VALUES ?wo2 {gtaa:72531} # "Tweede Wereldoorlog" (part of ConceptScheme 'Namen')
+    ?s sdo:about ?wo2 ;
+       sdo:name ?title ;
+       sdo:url ?url_gpp ;
+       sdo:conditionsOfAccess "View/listen to media online at the item's URL: True"^^xsd:string .
 }
 LIMIT 100

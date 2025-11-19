@@ -7,7 +7,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?s ?url_gpp ?title ?license
 WHERE {
   ?s rdf:type sdo:CreativeWork ;
-        (sdo:about|sdo:mentions) <http://data.beeldengeluid.nl/gtaa/27098> ;  # note: edit the concept id
+        sdo:about <http://data.beeldengeluid.nl/gtaa/27098> ;  # note: edit the concept id
         sdo:name ?title ;
         sdo:url ?url_gpp ;
         sdo:license ?license ;

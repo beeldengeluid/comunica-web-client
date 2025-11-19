@@ -1,19 +1,19 @@
-# Alle programma's gerelateerd aan een persoon (uit de thesaurus)
+# Select programs related to a person (using GTAA ID)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 PREFIX gtaa: <http://data.beeldengeluid.nl/gtaa/>
 
+# Select programs related to a person (using GTAA ID)
 SELECT DISTINCT ?programId ?title
 WHERE {
   VALUES ?person_name_uri { gtaa:164629 }  # note: edit the GTAA URI
   ?programId a sdo:CreativeWork .
-  ?programId (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)
-  ?person_name_uri .
+  ?programId (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/  (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?person_name_uri .
   ?programId sdo:name ?program_title .
   BIND(
     COALESCE(
-      IF(?program_title, ?program_title, 1/0),
-      "Unknown"
+      IF(BOUND(?program_title), ?program_title, 1/0),
+      "Geen titel"@nl
     ) AS ?title
   )
 }
