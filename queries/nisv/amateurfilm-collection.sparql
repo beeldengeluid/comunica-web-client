@@ -13,8 +13,9 @@ WHERE {
       ?s sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
   }
-s  OPTIONAL {
-    ?s sdo:name ?program_title
+#  ?s a sdo:CreativeWork  # uncomment to exclude series
+  OPTIONAL {
+    ?s sdo:name ?name
   }
-  BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
+  BIND(STR(COALESCE(?name, 'Untitled'^^xsd:string)) AS ?title)
 }
