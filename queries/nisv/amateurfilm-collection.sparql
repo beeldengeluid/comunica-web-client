@@ -2,20 +2,20 @@
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
-SELECT DISTINCT ?program_id ?title
+SELECT DISTINCT ?s ?title
 WHERE {
   GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
     {
-      ?program_id sdo:partOfSeries/sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+      ?s sdo:partOfSeries/sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
     UNION
     {
-      ?program_id sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
+      ?s sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
   }
-  ?program_id a sdo:CreativeWork
+#  ?s a sdo:CreativeWork  # uncomment to exclude series
   OPTIONAL {
-    ?program_id sdo:name ?program_title
+    ?s sdo:name ?name
   }
-  BIND(STR(COALESCE(?program_title, 'Untitled'^^xsd:string)) AS ?title)
+  BIND(STR(COALESCE(?name, 'Untitled'^^xsd:string)) AS ?title)
 }

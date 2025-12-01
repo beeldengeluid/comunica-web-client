@@ -1,43 +1,53 @@
 # MOZ Concerts - persons per standardised location
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
-PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 PREFIX sdo: <https://schema.org/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 # Shows the ID and name of related persons for all concerts that are part of the 
-# Dutch Broadcast Concert (MOZ) collection and are associated with a particular
-# standardised location
-# Persons can be in the role of Artist, Creator, or they may be mentioned in the concert, 
-# or the concert may be about them
-# Note that musical groups are also included in these results
-# Note that only concerts/scenes explicitly associated with both the person
-# and the location are included
-# Note, the location must be from a standardised vocabulary, and you must 
-# enter the exact label, including the language tag. 
-# Use the example query for location IDs and labels to find a list of available locations
+# Dutch Broadcast Concert (MOZ) collection and are associated with a particular standardised location.
+# Persons can be in the role of Artist, Creator, or the concert may be about them.
+# Note that musical groups are also included in these results.
+# Note that only concerts/scenes explicitly associated with both the person and the location are included.
+# Note, the location must be from a standardised vocabulary, and you must enter the exact label, including 
+# the language tag. Use the example query for location IDs and labels to find a list of available locations.
 
 SELECT DISTINCT ?entity ?entityLabel
 WHERE
 {
   ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> .
   {
-    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
-    ?location sdo:sameAs ?standardLocationEntity . 
-    ?programUri sdo:locationCreated ?location .
-    ?programUri (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string ;
+              sdo:sameAs ?standardLocationEntity . 
+    ?programUri sdo:locationCreated ?location ;
+                (sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?entity .
+    ?entity skos:prefLabel ?entityLabel .
+  }
+  UNION
+  {
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string ;
+              sdo:sameAs ?standardLocationEntity . 
+    ?programUri sdo:locationCreated ?location ;
+                sdo:about ?entity .
+    ?entity skos:prefLabel ?entityLabel .
+  }
+  UNION
+  {
+    ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string ;
+              sdo:sameAs ?standardLocationEntity . 
+    ?sceneUri sdo:locationCreated ?location .
+    ?sceneUri (sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?entity .
+    ?programUri sdo:hasPart ?sceneUri .
+    ?entity skos:prefLabel ?entityLabel .
   }
   UNION
   {
     ?location sdo:name "Muziekgebouw aan 't IJ"^^xsd:string .
     ?location sdo:sameAs ?standardLocationEntity . 
-    ?sceneUri sdo:locationCreated ?location .
-    ?programUri sdo:hasPart ?sceneUri.
-    ?sceneUri
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-            (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) ?entity .
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityLabel .
+    ?sceneUri sdo:locationCreated ?location ;
+              sdo:about ?entity .
+    ?programUri sdo:hasPart ?sceneUri .
+    ?entity skos:prefLabel ?entityLabel .
   }
 }

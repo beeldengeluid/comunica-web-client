@@ -3,29 +3,33 @@
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
 
-# Shows the ID and title for all concerts that are part of the Dutch Broadcast Concert 
-# (MOZ) collection and are linked to a person (in this example Beethoven), in alphabetical order
-# The person could be linked in the role of Artist, Creator, or he may be mentioned in 
-# the concert, or the concert may be about him
-# Persons in the MOZ collection can be linked at either the programme (concert) level or at scene level (a scene within the concert)
+# Shows the ID and title for concerts part of the Dutch Broadcast Concert (MOZ) collection and
+# are linked to a person (in this example Beethoven), in alphabetical order.
+# The person could be linked in the role of Artist, Creator, or the concert may be about the person.
+# Persons can be linked at either program (concert) level or at scene level (a scene within the concert)
 
 SELECT DISTINCT ?programUri ?programName 
 WHERE
 {
+  VALUES ?person_id { <http://data.beeldengeluid.nl/gtaa/80808> }  # GTAA URI for Beethoven
  # Filter for programmes belonging to the series "Muziekopnamen Zendgemachtigden (MOZ)", using its ID
  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
              sdo:name ?programName 
-			{	# look for links at programme level
-				?programUri (sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-				 # match for the GTAA thesaurus ID for Beethoven
-				(sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) <http://data.beeldengeluid.nl/gtaa/80808> .
-			}
-			UNION
-			{	# look for links at scene level
-				?programUri sdo:hasPart/(sdo:byArtist|sdo:about|sdo:mentions|sdo:creator)/
-				 # match for the GTAA thesaurus ID for Beethoven
-				(sdo:byArtist|sdo:about|sdo:mentions|sdo:creator) <http://data.beeldengeluid.nl/gtaa/80808> .
-			
-			}
+  # look for links at program level
+  {
+    ?programUri (sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?person_id .
+  }
+  UNION
+  {	
+    ?programUri sdo:about ?person_id .
+  }
+  UNION
+  # look for links at scene level
+  {	
+    ?programUri sdo:hasPart/(sdo:byArtist|sdo:creator)/(sdo:byArtist|sdo:creator) ?person_id .
+  }
+  UNION
+  {
+    ?programUri sdo:hasPart/sdo:about ?person_id .
+  }
 } ORDER BY ?programName
-

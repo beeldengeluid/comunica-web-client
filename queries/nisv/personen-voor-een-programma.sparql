@@ -1,46 +1,41 @@
-# Aan een programma gerelateerde personen
+# Select persons related to a program (also via series/season/scene)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX sdo: <https://schema.org/>
-PREFIX skosxl: <http://www.w3.org/2008/05/skos-xl#>
 
-# Personen voor een programma (ook via series/seizoen/scene description)
-
+# Select persons related to a program (also via series/season/scene)
 SELECT ?entity ?entityName
 WHERE {
   VALUES ?program_uri {<http://data.beeldengeluid.nl/id/program/2101608160143012931>}
   {
     ?program_uri a sdo:CreativeWork ;
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-      (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
+      (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+      (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+    ?entity skos:prefLabel ?entityName ;
+            skos:inScheme <http://data.beeldengeluid.nl/gtaa/Persoonsnamen>
   }
   UNION
   {
     ?program_uri sdo:isPartOfSeason ?season .
-
-    ?season  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
+    ?season (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+    (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+    ?entity skos:prefLabel ?entityName ;
+            skos:inScheme <http://data.beeldengeluid.nl/gtaa/Persoonsnamen>
   }
   UNION
   {
     ?program_uri sdo:isPartOfSeason/sdo:isPartOfSeries ?series .
-
-    ?series  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName
+    ?series (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+    (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+    ?entity skos:prefLabel ?entityName ;
+            skos:inScheme <http://data.beeldengeluid.nl/gtaa/Persoonsnamen>
   }
   UNION
   {
     ?scene sdo:hasPart ?program_uri.
-
-    ?scene  (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
-    (sdo:about|sdo:mentions|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
-
-    ?entity skosxl:prefLabel/skosxl:literalForm ?entityName 
+    ?scene (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer)/
+    (sdo:about|sdo:creator|sdo:contributor|sdo:actor|sdo:crew|sdo:performer) ?entity  .
+    ?entity skos:prefLabel ?entityName ;
+            skos:inScheme <http://data.beeldengeluid.nl/gtaa/Persoonsnamen>
   }
 }
