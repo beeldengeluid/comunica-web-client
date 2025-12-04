@@ -1,0 +1,14 @@
+# Describe a resource using select
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# Select all properties values and labels for properties, incl. blank nodes
+select distinct ?s ?p ?o ?label {
+  VALUES ?iri {<http://data.beeldengeluid.nl/id/program/2102409170367871831>}
+  {
+    { ?iri ?p ?o}
+    OPTIONAL {?o skos:prefLabel ?label}
+  }
+  UNION
+  { ?iri ?p1 ?s . FILTER(isblank(?s)) ?s ?p ?o . OPTIONAL {?o skos:prefLabel ?label} }
+}
