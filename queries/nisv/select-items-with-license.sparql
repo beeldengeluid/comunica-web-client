@@ -7,7 +7,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 SELECT DISTINCT ?s ?title ?license
 WHERE {
   VALUES ?license { <http://rightsstatements.org/vocab/InC/1.0/> }
-  ?itsem rdf:type sdo:CreativeWork ;
+  ?s rdf:type sdo:CreativeWork ;
         sdo:license ?license ;
         sdo:name ?title .
 
