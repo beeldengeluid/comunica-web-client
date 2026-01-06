@@ -1,0 +1,15 @@
+# List items part of the collection "Doesburgse brieven" by using the series ID.
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+
+PREFIX sdo: <https://schema.org/>
+
+# Show the ID and title of all items part of the "Doesburgse Brieven"-collection,
+# in alphabetical order
+
+SELECT DISTINCT ?s ?title
+WHERE
+{
+ # Filter for items part of the series "Doesburgse brieven", using its ID.
+ ?s sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2102503250380467231> ;
+             sdo:name ?title . 
+} ORDER BY ?title
