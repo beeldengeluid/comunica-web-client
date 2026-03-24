@@ -1,0 +1,17 @@
+# List item that are related to a cast member (actor)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?s ?title ?actor ?actor_name
+WHERE {
+    ?s a ?cat_type .
+  	?s sdo:name ?title .
+    ?s sdo:actor/sdo:actor ?actor .
+    ?s sdo:actor/rdf:type sdo:PerformanceRole .
+    ?actor skos:prefLabel ?actor_name .
+    FILTER(?cat_type in (sdo:CreativeWorkSeries,sdo:CreativeWorkSeason,sdo:CreativeWork, sdo:Clip))
+}
+OFFSET 0
+LIMIT 100
