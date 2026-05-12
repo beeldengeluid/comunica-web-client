@@ -1,4 +1,4 @@
-# Items with (OpenImages) content reference
+# List items for B&G catalogue published on "Open Beelden" (OpenImages)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

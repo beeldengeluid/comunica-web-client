@@ -1,9 +1,9 @@
-# Show items that are published for Onsland on Peertube
+# List items published on Peertube for Onsland
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
-# Items with sdo:workExample containing a reference to Peertube.
-SELECT ?s # ?title ?peertube_url
+# Items with sdo:workExample containing a reference to Peertube and Onsland.
+SELECT ?s ?title ?peertube_url
 WHERE {
   ?s sdo:name ?title ;
      sdo:workExample ?peertube_url .

@@ -1,8 +1,8 @@
-# Amateur Film collection item identifiers (available online)
+# List items part of the collection "Amateur Film"
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
-SELECT DISTINCT ?s
+SELECT DISTINCT ?s ?title
 WHERE {
   GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
     {
@@ -13,9 +13,9 @@ WHERE {
       ?s sdo:additionalType "Bewegend beeld - Smalfilm"^^sdo:Text .
     }
   }
-  ?s a sdo:CreativeWork .
-  
-  # Filter items available online on General Public Portal.
-  ?s sdo:conditionsOfAccess ?show_browse
-  FILTER(CONTAINS(?show_browse, 'True'))
+#  ?s a sdo:CreativeWork  # uncomment to exclude series
+  OPTIONAL {
+    ?s sdo:name ?name
+  }
+  BIND(STR(COALESCE(?name, 'Untitled'^^xsd:string)) AS ?title)
 }
