@@ -1,0 +1,21 @@
+# List item item from the Perscollectie
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?s ?title
+WHERE {
+  GRAPH <http://data.rdlabs.beeldengeluid.nl/cat/> {
+    {
+      ?s sdo:partOfSeries/sdo:additionalType "Perscollectie"^^sdo:Text .
+    }
+    UNION
+    {
+      ?s sdo:additionalType "Perscollectie"^^sdo:Text .
+    }
+  }
+#  ?s a sdo:CreativeWork  # uncomment to exclude series
+  OPTIONAL {
+    ?s sdo:name ?name
+  }
+  BIND(STR(COALESCE(?name, 'Untitled'^^xsd:string)) AS ?title)
+}
