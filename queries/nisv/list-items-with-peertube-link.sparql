@@ -1,0 +1,11 @@
+# List items that have been published on Peertube
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+# Items with an associated MediaObject on Peertube
+SELECT ?s ?title ?peertube_url ?license
+WHERE {
+  ?s sdo:name ?title ;
+     sdo:associatedMedia ?peertube_url .
+  ?peertube_url sdo:license ?license .
+}

@@ -1,0 +1,11 @@
+# List identifiers for collection "Wordende Wereld", if available on peertube
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+SELECT DISTINCT ?s
+WHERE {
+    VALUES ?series { <http://data.beeldengeluid.nl/id/series/2101608030021570531> }
+    ?s sdo:partOfSeries ?series ;
+       sdo:associatedMedia ?peertube_url .
+     ?peertube_url sdo:license ?license .
+}
