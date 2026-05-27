@@ -1,0 +1,12 @@
+# List items for B&G catalogue published on "Open Beelden" (OpenImages)
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+# Show identifier and content URL for items that are published on Open Images
+SELECT ?s ?title ?open_beelden_url ?content_url ?encoding
+WHERE {
+  ?s sdo:name ?title ;
+        sdo:associatedMedia ?open_beelden_url .
+  ?open_beelden_url sdo:encodingFormat ?encoding ;
+      sdo:contentUrl ?content_url
+}

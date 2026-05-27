@@ -1,4 +1,4 @@
-# MOZ Concerts
+# List items part of the collection "MOZ Concerts" by using the series ID.
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 
 PREFIX sdo: <https://schema.org/>
@@ -13,4 +13,3 @@ WHERE
  ?programUri sdo:partOfSeason/sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030025711131> ;
              sdo:name ?programName . 
 } ORDER BY ?programName
-

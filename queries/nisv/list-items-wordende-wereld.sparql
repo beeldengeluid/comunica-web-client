@@ -1,0 +1,14 @@
+# List items part of the collection "Wordende wereld" by using the series ID.
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+# Show the ID and title of all items part of the "Wordende wereld"-collection,
+# in alphabetical order
+
+SELECT DISTINCT ?s ?title
+WHERE
+{
+ # Filter for items part of the series "Wordende wereld", using the series ID.
+ ?s sdo:partOfSeries <http://data.beeldengeluid.nl/id/series/2101608030021570531> ;
+             sdo:name ?title . 
+} ORDER BY ?title
