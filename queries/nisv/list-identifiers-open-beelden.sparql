@@ -1,8 +1,6 @@
-# List identifiers for B&G catalogue published c
+# List identifiers for B&G catalogue items published on Open Beelden/Open Images
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
-
-# List identifiers for B&G catalogue items published on Open Beelden/Open Images.
 SELECT DISTINCT ?s
 WHERE {
   ?s sdo:associatedMedia ?open_beelden_url .
