@@ -17,5 +17,4 @@ WHERE {
   OPTIONAL {
     ?s sdo:name ?name
   }
-  BIND(STR(COALESCE(?name, 'Untitled'^^xsd:string)) AS ?title)
 }

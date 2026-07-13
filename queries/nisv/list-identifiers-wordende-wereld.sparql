@@ -6,9 +6,6 @@ SELECT DISTINCT ?s
 WHERE {
     VALUES ?series { <http://data.beeldengeluid.nl/id/series/2101608030021570531> }
     ?s sdo:partOfSeries ?series ;
-       sdo:associatedMedia ?peertube_url .
-     ?peertube_url sdo:license ?license .
-
-  # Filter items available on Peertube.
-  FILTER(STRSTARTS(STR(?peertube_url), "https://peertube.beeldengeluid.nl/videos/watch/"))
+        sdo:mainEntityOfPage ?peertube_url .
+    FILTER(STRSTARTS(STR(?peertube_url), "https://peertube.beeldengeluid.nl/videos/watch/"))
 }

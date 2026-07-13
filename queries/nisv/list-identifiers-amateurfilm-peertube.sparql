@@ -1,4 +1,4 @@
-# List identifiers for the "Amateurfilm" collection (available on Peertube)
+# List identifiers for the "Amateur film" collection (available on Peertube)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
@@ -14,8 +14,6 @@ WHERE {
     }
   }
   ?s a sdo:CreativeWork .
-  
-  # Filter items available on Peertube.
-  ?s sdo:associatedMedia ?peertube_url .
+  ?s sdo:mainEntityOfPage ?peertube_url .
   FILTER(STRSTARTS(STR(?peertube_url), "https://peertube.beeldengeluid.nl/videos/watch/"))
 }

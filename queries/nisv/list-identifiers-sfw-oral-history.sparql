@@ -1,0 +1,17 @@
+# List identifiers for collection "SFW oral history" (available on peertube channel 'ons_land')
+# Datasource: https://cat.apis.beeldengeluid.nl/sparql
+PREFIX sdo: <https://schema.org/>
+
+# oud
+SELECT DISTINCT ?s
+WHERE {
+  ?s sdo:associatedMedia ?peertube_url .
+  ?peertube_url sdo:conditionsOfAccess "Media is password protected and only available for Onsland."@en .
+}
+
+# nieuw
+SELECT DISTINCT ?s
+WHERE {
+  ?s sdo:mainEntityOfPage ?peertube_url .
+  ?peertube_url sdo:conditionsOfAccess "Media is published in Peertube channel 'ons_land' with privacy setting 'Password_protected'."@en .
+}
