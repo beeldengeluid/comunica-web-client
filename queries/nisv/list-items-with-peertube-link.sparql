@@ -1,11 +1,12 @@
-# List items that have been published on Peertube
+# List NISV cat items (published on Peertube)
 # Datasource: https://cat.apis.beeldengeluid.nl/sparql
 PREFIX sdo: <https://schema.org/>
 
-# Items with an associated MediaObject on Peertube
+# Items with an associated WebPage on Peertube
 SELECT ?s ?title ?peertube_url ?license
 WHERE {
   ?s sdo:name ?title ;
-     sdo:associatedMedia ?peertube_url .
+     sdo:mainEntityOfPage ?peertube_url .
   ?peertube_url sdo:license ?license .
+  FILTER(STRSTARTS(STR(?peertube_url), "https://peertube.beeldengeluid.nl/videos/watch/"))
 }
