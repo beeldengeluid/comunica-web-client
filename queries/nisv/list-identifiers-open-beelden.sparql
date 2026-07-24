@@ -3,6 +3,6 @@
 PREFIX sdo: <https://schema.org/>
 SELECT DISTINCT ?s
 WHERE {
-  ?s sdo:mainEntityOfPage ?open_beelden_url .
+  ?s sdo:associatedMedia ?open_beelden_url .
   FILTER(STRSTARTS(STR(?open_beelden_url), "https://www.openbeelden.nl/media/"))
 }
