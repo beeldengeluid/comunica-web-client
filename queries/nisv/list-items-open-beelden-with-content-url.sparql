@@ -6,8 +6,10 @@ PREFIX sdo: <https://schema.org/>
 SELECT ?s ?title ?open_beelden_url ?content_url ?encoding
 WHERE {
   ?s sdo:name ?title ;
-     sdo:associatedMedia ?open_beelden_url .
-  FILTER(STRSTARTS(STR(?open_beelden_url), "https://www.openbeelden.nl/media/"))
-  ?open_beelden_url sdo:encodingFormat ?encoding ;
+     sdo:mainEntityOfPage ?open_beelden_url .
+  FILTER(STRSTARTS(STR(?open_beelden_url), "https://openbeelden.nl/media/"))
+  ?open_beelden_url sdo:associatedMedia [
+      sdo:encodingFormat ?encoding ;
       sdo:contentUrl ?content_url
+  ]
 }
