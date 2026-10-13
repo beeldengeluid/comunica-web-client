@@ -3,10 +3,11 @@
 PREFIX sdo: <https://schema.org/>
 
 # Items with an associated WebPage on Peertube
-SELECT ?s ?title ?peertube_url ?license
+SELECT ?s ?title ?peertube_url ?license ?thumbnail
 WHERE {
   ?s sdo:name ?title ;
      sdo:mainEntityOfPage ?peertube_url .
   ?peertube_url sdo:license ?license .
+  OPTIONAL{ ?peertube_url sdo:thumbnailUrl ?thumbnail }
   FILTER(STRSTARTS(STR(?peertube_url), "https://peertube.beeldengeluid.nl/videos/watch/"))
 }
